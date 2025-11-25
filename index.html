@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,13 +15,14 @@
   <!-- PDF Lib (Requer Internet) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
+
 <body>
 
   <!-- ============================ -->
   <!-- TELA DE LOGIN -->
   <!-- ============================ -->
   <div id="login-tela" class="login-container">
-    
+
     <img src="img/logo.png" class="logo" alt="Logo Ousadia Vest">
 
     <h1 class="titulo-login">Ousadia Vest</h1>
@@ -41,7 +43,11 @@
 
     <!-- BARRA LATERAL (MENU) -->
     <aside class="sidebar">
-      <h2>Menu</h2>
+      <!-- Logo na Sidebar -->
+      <div class="sidebar-header">
+        <img src="img/logo.png" alt="Ousadia Vest" class="sidebar-logo">
+      </div>
+
       <nav>
         <button onclick="navegar('estoque', this)" class="active">
           <span class="material-icons">inventory</span> Estoque
@@ -86,7 +92,15 @@
           <button id="btn-adicionar">Adicionar</button>
         </div>
 
-        <h3>Estoque Atual</h3>
+        <div class="header-tabela">
+          <h3>Estoque Atual</h3>
+          <!-- Campo de Busca -->
+          <div class="busca-container">
+            <span class="material-icons icone-busca">search</span>
+            <input type="text" id="input-busca" placeholder="Pesquisar produto...">
+          </div>
+        </div>
+
         <div class="tabela-container">
           <table id="tabela-produtos">
             <thead>
@@ -105,7 +119,7 @@
             </tbody>
           </table>
         </div>
-        
+
         <p class="totais" style="margin-top: 20px; font-size: 1.2rem; font-weight: bold; text-align: right;">
           Valor Total em Estoque: <span id="total-estoque" style="color: #27ae60;">R$ 0,00</span>
         </p>
@@ -121,7 +135,8 @@
           <ul id="carrinho-lista">
             <!-- Itens do carrinho -->
           </ul>
-          <p class="resumo-carrinho">Total: <span id="carrinho-total" style="font-weight:bold; color: #27ae60;">R$ 0,00</span></p>
+          <p class="resumo-carrinho">Total: <span id="carrinho-total" style="font-weight:bold; color: #27ae60;">R$
+              0,00</span></p>
           <button id="btn-finalizar">Finalizar Venda</button>
         </div>
       </section>
@@ -177,4 +192,5 @@
   <!-- JavaScript -->
   <script src="script.js"></script>
 </body>
+
 </html>

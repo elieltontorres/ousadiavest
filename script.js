@@ -72,6 +72,7 @@ const miniCarrinhoEl = $("#mini-carrinho");
 const carrinhoTotalEl = $("#carrinho-total");
 const caixaDiaEl = $("#caixa-dia");
 const caixaAnteriorEl = $("#caixa-anterior");
+const inputBusca = $("#input-busca"); // Elemento de busca
 
 const modalEditar = $("#modal-editar");
 const editarIdEl = $("#editar-id");
@@ -103,9 +104,18 @@ function atualizarTabela() {
     tbodyProdutos.innerHTML = "";
     const frag = document.createDocumentFragment();
 
+    // Filtro de busca
+    const termoBusca = inputBusca ? inputBusca.value.trim().toLowerCase() : "";
+
+    // Ordenação: Ativos primeiro
     const lista = [...produtos].sort((a, b) => Number(b.ativo) - Number(a.ativo));
 
     for (const p of lista) {
+        // Se houver busca e o nome não corresponder, pula este item
+        if (termoBusca && !p.nome.toLowerCase().includes(termoBusca)) {
+            continue;
+        }
+
         const tr = document.createElement("tr");
         if (!p.ativo) tr.classList.add("inativo");
 
@@ -142,6 +152,19 @@ function atualizarTabela() {
         tdAcoes.append(btnV, btnE);
         tr.appendChild(tdAcoes);
 
+        frag.appendChild(tr);
+    }
+
+    if (frag.childElementCount === 0 && termoBusca) {
+        // Mensagem se nada for encontrado
+        const tr = document.createElement("tr");
+        const td = document.createElement("td");
+        td.colSpan = 7;
+        td.textContent = "Nenhum produto encontrado.";
+        td.style.textAlign = "center";
+        td.style.color = "#777";
+        td.style.padding = "20px";
+        tr.appendChild(td);
         frag.appendChild(tr);
     }
 
@@ -388,6 +411,13 @@ if (carrinhoListaEl) {
         const b = e.target.closest("button");
         if (b?.dataset.action === "remover-carrinho")
             removerDoCarrinho(b.dataset.index);
+    });
+}
+
+// Evento de busca em tempo real
+if (inputBusca) {
+    inputBusca.addEventListener("input", () => {
+        atualizarTabela(); // Re-renderiza a tabela a cada letra digitada
     });
 }
 

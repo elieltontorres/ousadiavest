@@ -61,6 +61,11 @@ body {
     text-align: center;
 }
 
+.logo-placeholder {
+    animation: logoFade 0.7s ease-out;
+    margin-bottom: 10px;
+}
+
 .logo {
     width: 160px;
     margin-bottom: 12px;
@@ -169,12 +174,29 @@ body {
     z-index: 10;
 }
 
-.sidebar h2 {
-    font-size: 20px;
-    margin-bottom: 20px;
+.sidebar-header {
     text-align: center;
+    margin-bottom: 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding-bottom: 15px;
+}
+
+/* --- LOGO REDONDA NA SIDEBAR --- */
+.sidebar-logo {
+    width: 100px;
+    height: 100px;
+    /* Altura fixa igual à largura para ficar quadrada/círculo */
+    object-fit: cover;
+    /* Garante que a imagem preencha o círculo sem distorcer */
+    border-radius: 50%;
+    /* Faz a imagem ficar redonda */
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    /* Borda sutil opcional */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.sidebar h2 {
+    display: none;
 }
 
 .sidebar nav {
@@ -308,6 +330,46 @@ h2 {
     background: #2980b9;
 }
 
+/* Header da Tabela (Título + Busca) */
+.header-tabela {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.busca-container {
+    position: relative;
+    max-width: 300px;
+    width: 100%;
+}
+
+.icone-busca {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 20px;
+}
+
+.busca-container input {
+    width: 100%;
+    padding: 10px 10px 10px 35px;
+    /* Padding extra na esquerda pro ícone */
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: 0.2s;
+}
+
+.busca-container input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
 /* Tabela */
 .tabela-container {
     background: white;
@@ -330,9 +392,20 @@ table th {
 }
 
 table td {
-    padding: 12px 15px;
+    padding: 14px 15px;
+    /* Aumentado padding vertical */
     border-bottom: 1px solid #eee;
-    color: #555;
+    color: #333;
+    /* Cor mais escura para melhor leitura */
+    font-size: 15px;
+    /* Fonte aumentada */
+}
+
+/* Destaque para o nome do produto (primeira coluna) */
+table td:first-child {
+    font-weight: 700;
+    color: var(--secondary);
+    font-size: 16px;
 }
 
 table tr:last-child td {
@@ -579,6 +652,20 @@ tr.inativo td[data-label="Ações"] {
         align-items: center;
         justify-content: space-between;
         overflow-x: auto;
+        gap: 10px;
+    }
+
+    .sidebar-header {
+        margin-bottom: 0;
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .sidebar-logo {
+        width: 60px;
+        /* Logo menor no mobile */
+        height: 60px;
+        /* Mantém a proporção quadrada/redonda */
     }
 
     .sidebar h2 {
@@ -587,8 +674,9 @@ tr.inativo td[data-label="Ações"] {
 
     .sidebar nav {
         flex-direction: row;
-        width: 100%;
-        justify-content: space-around;
+        width: auto;
+        flex: 1;
+        justify-content: flex-end;
     }
 
     .sidebar button {
@@ -598,6 +686,7 @@ tr.inativo td[data-label="Ações"] {
         text-align: center;
         padding: 8px;
         border-left: none;
+        width: auto;
     }
 
     .sidebar button.active {
@@ -616,6 +705,15 @@ tr.inativo td[data-label="Ações"] {
 
     .form-produto button {
         width: 100%;
+    }
+
+    .header-tabela {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .busca-container {
+        max-width: 100%;
     }
 
     /* Tabelas responsivas */
